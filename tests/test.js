@@ -393,3 +393,100 @@ describe("calculateDivisors", () => {
 */
 
 // 3) ==================== Updating remote students ====================
+describe("updateRemoteStudents", () => {
+  // Check that function returns an array
+  it("Should return an array", () => {
+    const actual = updateRemoteStudents([{ name: "Euler", age: 27 }]);
+    assert.isArray(actual, "Should return an array");
+  });
+
+  // Check that function can handle an empty array input
+  it("Should return an empty array when passed an empty array", () => {
+    const inputArray = [];
+    const actual = updateRemoteStudents(inputArray);
+
+    assert.deepEqual(actual, [], "Should return an empty array");
+  });
+
+  // Test for pure function behavior
+  it("Should not mutate the original array", () => {
+    const inputArray = [{ name: "Euclid", age: 30 }];
+    const inputCopy = [...inputArray]; // Shallow copy to compare later
+    updateRemoteStudents(inputArray);
+    assert.deepEqual(
+      inputArray,
+      inputCopy,
+      "The original array should not be mutated"
+    );
+  });
+
+  // Check that function still produces correct results
+  it("Should produce the correct output without modifying input", () => {
+    const inputArray = [
+      { name: "Hypatia", age: 31, location: "leeds" },
+      { name: "Ramanujan", age: 22 },
+    ];
+    const actual = updateRemoteStudents(inputArray);
+    const expected = [
+      { name: "Hypatia", age: 31, location: "leeds" },
+      { name: "Ramanujan", age: 22, location: "remote" },
+    ];
+
+    // Ensure the original array wasn't changed
+    const originalArray = [
+      { name: "Hypatia", age: 31, location: "leeds" },
+      { name: "Ramanujan", age: 22 },
+    ];
+    assert.deepEqual(
+      inputArray,
+      originalArray,
+      "The original array should remain unchanged"
+    );
+
+    // Check that the returned result is correct
+    assert.deepEqual(
+      actual,
+      expected,
+      "Function should return the expected array"
+    );
+  });
+
+  // Check if each element of the array is an object
+  it("Should check that each element is an object", () => {
+    const inputArray = [
+      { name: "Hypatia", age: 31, location: "leeds" },
+      { name: "Ramanujan", age: 22 },
+      { name: "Tao", age: 47, location: "manchester" },
+    ];
+    const actual = updateRemoteStudents(inputArray);
+    actual.forEach((el) => {
+      assert.isObject(el, "Elements of the array should be objects");
+    });
+  });
+
+  // Check that single object has been correctly updated
+  it("Should update student object", () => {
+    const inputArray = [{ name: "Euler", age: 27 }];
+    const actual = updateRemoteStudents(inputArray);
+    const expected = [{ name: "Euler", age: 27, location: "remote" }];
+
+    assert.deepEqual(actual, expected);
+  });
+
+  // Check multiple objects are updated correctly
+  it("Should update multiple student objects", () => {
+    const inputArray = [
+      { name: "Hypatia", age: 31, location: "leeds" },
+      { name: "Ramanujan", age: 22 },
+      { name: "Tao", age: 47, location: "manchester" },
+    ];
+    const actual = updateRemoteStudents(inputArray);
+    const expected = [
+      { name: "Hypatia", age: 31, location: "leeds" },
+      { name: "Ramanujan", age: 22, location: "remote" },
+      { name: "Tao", age: 47, location: "manchester" },
+    ];
+
+    assert.deepEqual(actual, expected);
+  });
+});
