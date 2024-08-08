@@ -94,4 +94,15 @@ export const calculateDivisors = (num) => {
 };
 
 // 4) ==================== Updating remote students ====================
-export const updateRemoteStudents = () => {};
+export const updateRemoteStudents = (arr) => {
+  return arr.map((obj) => {
+    if (!obj.location) {
+      return {
+        ...obj,
+        location: "remote",
+      };
+    }
+
+    return obj;
+  });
+};
