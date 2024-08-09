@@ -5,6 +5,7 @@ import {
   getTweetData,
   calculateDivisors,
   updateRemoteStudents,
+  tillAddition,
 } from "./../index.js";
 
 // Uncomment 'describe' block to test each function independently
@@ -392,7 +393,8 @@ describe("calculateDivisors", () => {
 });
 */
 
-// 3) ==================== Updating remote students ====================
+// 4) ==================== Updating remote students ====================
+/*
 describe("updateRemoteStudents", () => {
   // Check that function returns an array
   it("Should return an array", () => {
@@ -488,5 +490,170 @@ describe("updateRemoteStudents", () => {
     ];
 
     assert.deepEqual(actual, expected);
+  });
+});
+*/
+
+// 5) ==================== Cash up the cafe till at the end of the day ====================
+describe("tillAddition", () => {
+  // Function should return a string
+  it("Should return a string", () => {
+    const actual = tillAddition({ "1p": 1, "2p": 1 });
+
+    assert.isString(actual, "Should return a string");
+  });
+
+  // Function should return string in correct format
+  it("Should correctly format the returned string", () => {
+    const actual = tillAddition({ "1p": 1, "2p": 1 });
+    const regexp = /^£\d+\.\d{2}$/;
+
+    assert.match(actual, regexp, "Should be in the format £0.00");
+  });
+
+  // Function should return £0.00 when passed a empty object
+  it("Should return £0.00 when passed an empty object", () => {
+    const actual = tillAddition({});
+    const expected = "£0.00";
+
+    assert.equal(actual, expected, "Should return £0.00");
+  });
+
+  // Function should handle incorrect keys
+  it("Should handle incorrect cash denominations", () => {
+    const actual = tillAddition({
+      "5p": 1,
+      "10p": 1,
+      "20p": 1,
+      "50p": 1,
+      "£1": 1,
+      "two pound": 1,
+    });
+    const expected = "£1.85";
+
+    assert.equal(
+      actual,
+      expected,
+      "Should handle incorrect cash denominations"
+    );
+  });
+
+  // Function should handle incorrect value types
+  it("Should handle cases where key is NaN", () => {
+    const actual = tillAddition({
+      "5p": 1,
+      "10p": 1,
+      "20p": 1,
+      "50p": 1,
+      "£1": 1,
+      "£2": "3",
+    });
+    const expected = "£7.85";
+
+    assert.equal(actual, expected, "Value must be a number");
+  });
+
+  // Function should handle non-numeric strings
+  it("Should ignore non-numeric string values", () => {
+    const actual = tillAddition({ "£1": "one", "£2": 2 });
+    const expected = "£4.00";
+
+    assert.equal(actual, expected, "Should ignore non-numeric string values");
+  });
+
+  // Function should handle empty strings as keys
+  it("Should ignore empty string keys", () => {
+    const actual = tillAddition({ "£1": 1, "": 5 });
+    const expected = "£1.00";
+
+    assert.equal(actual, expected, "Should ignore empty string keys");
+  });
+
+  // Function should handle zero quantities
+  it("Should handle zero quantities correctly", () => {
+    const actual = tillAddition({ "£1": 0, "£2": 0 });
+    const expected = "£0.00";
+
+    assert.equal(actual, expected, "Should handle zero quantities correctly");
+  });
+
+  // Function should handle objects with no valid entries
+  it("Should return £0.00 when object has no valid entries", () => {
+    const actual = tillAddition({ fake: 1, invalid: 2 });
+    const expected = "£0.00";
+
+    assert.equal(
+      actual,
+      expected,
+      "Should return £0.00 when object has no valid entries"
+    );
+  });
+
+  // Function should handle floating point precision
+  it("Should correctly handle floating-point precision", () => {
+    const actual = tillAddition({
+      "£1": 1,
+      "£2": 1,
+      "£5": 1,
+      "10p": 1,
+      "20p": 1,
+    });
+    const expected = "£8.30";
+
+    assert.equal(
+      actual,
+      expected,
+      "Should correctly handle floating-point precision"
+    );
+  });
+
+  // Function should handle negative values
+  it("Should handle negative values by ignoring them", () => {
+    const actual = tillAddition({ "£1": -1, "£2": 2 });
+    const expected = "£4.00";
+
+    assert.equal(actual, expected, "Should ignore negative values");
+  });
+
+  // Function should return the correct total
+  it('Should return £0.03 when passed { "1p": 1, "2p": 1 }', () => {
+    const actual = tillAddition({ "1p": 1, "2p": 1 });
+    const expected = "£0.03";
+
+    assert.equal(actual, expected, "Should return the correct total");
+  });
+
+  it('Should return £0.38 when passed { "1p": 1, "2p": 1, "5p": 1, "10p": 1, "20p": 1 }', () => {
+    const actual = tillAddition({
+      "1p": 1,
+      "2p": 1,
+      "5p": 1,
+      "10p": 1,
+      "20p": 1,
+    });
+    const expected = "£0.38";
+
+    assert.equal(actual, expected, "Should return the correct total");
+  });
+
+  it('Should return £1.85 when passed { "5p": 1, "10p": 1, "20p": 1, "50p": 1, "£1": 1 }', () => {
+    const actual = tillAddition({
+      "5p": 1,
+      "10p": 1,
+      "20p": 1,
+      "50p": 1,
+      "£1": 1,
+    });
+    const expected = "£1.85";
+
+    assert.equal(actual, expected, "Should return the correct total");
+  });
+
+  // Function should handle large quantities
+  it("Should handle large quantities correctly", () => {
+    const actual = tillAddition({ "1p": 10000, "£1": 1 });
+    const expected = "£101.00";
+
+    assert.equal(actual, expected, "Should handle large quantities correctly");
   });
 });
