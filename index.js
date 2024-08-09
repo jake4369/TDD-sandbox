@@ -106,3 +106,33 @@ export const updateRemoteStudents = (arr) => {
     return obj;
   });
 };
+
+// 5) ==================== Cash up the cafe till at the end of the day ====================
+export const tillAddition = (cash) => {
+  const cashValues = {
+    "1p": 0.01,
+    "2p": 0.02,
+    "5p": 0.05,
+    "10p": 0.1,
+    "20p": 0.2,
+    "50p": 0.5,
+    "£1": 1,
+    "£2": 2,
+    "£5": 5,
+    "£10": 10,
+    "£20": 20,
+    "£50": 50,
+  };
+
+  let total = 0;
+
+  for (const [key, value] of Object.entries(cash)) {
+    if (cashValues.hasOwnProperty(key) && value > 0) {
+      total += cashValues[key] * value;
+    }
+  }
+
+  return `£${total.toFixed(2)}`;
+};
+
+console.log(tillAddition({ "5p": 1, "10p": 1, "20p": 1, "50p": 1, "£1": 1 }));
