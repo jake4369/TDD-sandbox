@@ -135,4 +135,27 @@ export const tillAddition = (cash) => {
   return `£${total.toFixed(2)}`;
 };
 
-console.log(tillAddition({ "5p": 1, "10p": 1, "20p": 1, "50p": 1, "£1": 1 }));
+// 6) ==================== Change Calculator ====================
+export const changeCalculator = (amount) => {
+  const changeObj = {};
+  const denominations = ["50", "20", "10", "5", "2", "1"];
+};
+
+// 7) ==================== Sentence to upper or lower camel case ====================
+export const sentenceToCamelCase = (str, isPascalCase) => {
+  if (typeof str !== "string" || typeof isPascalCase !== "boolean") return null;
+
+  if (!str) return "";
+
+  return str
+    .split(" ")
+    .map((word, index) =>
+      index === 0 && !isPascalCase
+        ? word.toLowerCase()
+        : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+    )
+    .join("");
+};
+
+// 8) ==================== Fold string ====================
+export const foldString = (str) => {};
