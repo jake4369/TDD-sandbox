@@ -6,6 +6,9 @@ import {
   calculateDivisors,
   updateRemoteStudents,
   tillAddition,
+  changeCalculator,
+  sentenceToCamelCase,
+  foldString,
 } from "./../index.js";
 
 // Uncomment 'describe' block to test each function independently
@@ -495,6 +498,7 @@ describe("updateRemoteStudents", () => {
 */
 
 // 5) ==================== Cash up the cafe till at the end of the day ====================
+/*
 describe("tillAddition", () => {
   // Function should return a string
   it("Should return a string", () => {
@@ -657,3 +661,145 @@ describe("tillAddition", () => {
     assert.equal(actual, expected, "Should handle large quantities correctly");
   });
 });
+*/
+
+// 6) ==================== Change Calculator ====================
+/*
+describe("changeCalculator", () => {
+  // Function should return an object
+  it("Should return an object", () => {
+    const actual = changeCalculator();
+
+    assert.isObject(actual, "Should return an object");
+  });
+
+  // Function should return an empty
+  it("Should return an empty array if passed 0", () => {
+    const actual = changeCalculator(0);
+    const expected = {};
+
+    assert.deepEqual(actual, expected, "Should return an object");
+  });
+});
+*/
+
+// 7) ==================== Sentence to upper or lower camel case ====================
+/*
+describe("sentenceToCamelCase", () => {
+  // Function should only accept strings and booleans
+  it("Should only accept strings", () => {
+    const actual = sentenceToCamelCase(123, "true");
+
+    assert.isNull(actual, "Should only accept strings");
+  });
+
+  // Function should return empty string when passed ""
+  it('Should return an empty string when passed ""', () => {
+    const actual = sentenceToCamelCase("", true);
+    const expected = "";
+
+    assert.equal(actual, expected, 'Should return ""');
+  });
+
+  // Function should return a string
+  it("Should return a string", () => {
+    const actual = sentenceToCamelCase("test", true);
+
+    assert.isString(actual, "Should return a string");
+  });
+
+  // Function should handle spaces between words
+  it("Should handle spaces between words", () => {
+    const actual = sentenceToCamelCase("this sentence", true);
+    const expected = "ThisSentence";
+
+    assert.equal(actual, expected, "Should trim or collapse spaces");
+  });
+
+  // Function should handle consecutive spaces between words
+  it("Should handle multiple consecutive spaces between words", () => {
+    const actual = sentenceToCamelCase("this  sentence", true);
+    const expected = "ThisSentence";
+
+    assert.equal(actual, expected, "Should collapse multiple spaces into one");
+  });
+
+  // Function should handle special characters and numbers
+  it("Should handle special characters and numbers correctly", () => {
+    const actual = sentenceToCamelCase("hello 123 world!", true);
+    const expected = "Hello123World!";
+
+    assert.equal(
+      actual,
+      expected,
+      "Should correctly handle special characters and numbers"
+    );
+  });
+
+  // Function should handle null or undefined inputs
+  it("Should return null when null or undefined is passed as input", () => {
+    const actual1 = sentenceToCamelCase(null, true);
+    const actual2 = sentenceToCamelCase("test", undefined);
+
+    assert.isNull(actual1, "Should return null for null input");
+    assert.isNull(actual2, "Should return null for undefined boolean input");
+  });
+
+  // Case insensitivity
+  it("Should handle mixed-case input properly", () => {
+    const actual = sentenceToCamelCase("HeLLo WoRLd", false);
+    const expected = "helloWorld";
+
+    assert.equal(actual, expected, "Mixed-cases not handled correctly");
+  });
+
+  // Function should handle boolean values correctly
+  it("Should correctly handle boolean values", () => {
+    const actualTrue = sentenceToCamelCase("example test", true);
+    const actualFalse = sentenceToCamelCase("example test", false);
+
+    assert.equal(
+      actualTrue,
+      "ExampleTest",
+      "Should return Upper Camel Case for true"
+    );
+    assert.equal(
+      actualFalse,
+      "exampleTest",
+      "Should return Lower Camel Case for false"
+    );
+  });
+
+  // Function should return sentence in correct camel case
+  it("Should return string in in correct camel case", () => {
+    const actual = sentenceToCamelCase("this sentence", true);
+    const expected = "ThisSentence";
+
+    assert.equal(actual, expected, "String should be upper camel case");
+  });
+
+  it("Should return string in in correct camel case", () => {
+    const actual = sentenceToCamelCase("this sentence", false);
+    const expected = "thisSentence";
+
+    assert.equal(actual, expected, "String should be lower camel case");
+  });
+
+  // Function should handle single word inputs
+  it("Should handle single word inputs", () => {
+    const actual = sentenceToCamelCase("word", true);
+    const expected = "Word";
+
+    assert.equal(actual, expected, "Should return Word");
+  });
+
+  it("Should handle single word inputs", () => {
+    const actual = sentenceToCamelCase("word", false);
+    const expected = "word";
+
+    assert.equal(actual, expected, "Should return word");
+  });
+});
+*/
+
+// 7) ==================== Sentence to upper or lower camel case ====================
